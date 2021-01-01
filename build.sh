@@ -1,4 +1,7 @@
 #!/bin/sh
 
-DOCKER_BUILDKIT=1 docker build -t enelar/grive2 .
-docker push enelar/grive2
+DOCKER_BUILDKIT=1 docker build -t enelar/gdrive2 .
+docker push enelar/gdrive2
+
+DOCKER_BUILDKIT=1 docker build -t enelar/gdrive2:man -f=Dockerfile-man .
+docker push enelar/gdrive2:man
