@@ -4,6 +4,7 @@ RUN dnf install -y git cmake libgcrypt-devel gcc-c++ libstdc++ yajl-devel boost-
 RUN git clone https://github.com/vitalif/grive2 /src
 RUN cd /src && mkdir build && cd build && cmake .. && make -j4 && make install
 RUN ls /usr/local/bin
+RUN chmod +x /usr/local/bin/grive
 RUN mkdir /result && cp --parents /usr/local/bin/grive /usr/lib64/libyajl.so* /result
 
 FROM fedora as deps
@@ -18,4 +19,6 @@ RUN if [[ ! $(grive -h) ]]; then exit 1; fi
 
 FROM deps
 ENTRYPOINT ["/usr/local/bin/grive"]
+VOLUME /grive
+WORKDIR /grive/token
 COPY --from=test /result /
